@@ -9,8 +9,8 @@ class RepositoriesController < ApplicationController
     client_secret = Rails.application.secrets.github_client_secret
 
     @resp = Faraday.get 'https://api.github.com/search/repositories' do |req|
-      req.params['client_id'] = client_id
-      req.params['client_secret'] = client_secret
+      #req.params['client_id'] = client_id
+      #req.params['client_secret'] = client_secret
       req.params['q'] = params[:query]
     end
 
@@ -19,7 +19,7 @@ class RepositoriesController < ApplicationController
     if @resp.success?
       @repositories = body['items']
     else
-      #@error = body['items']
+      @error = body
     end
 
     render :search

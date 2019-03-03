@@ -12,7 +12,6 @@ class RepositoriesController < ApplicationController
         req.params['client_id'] = client_id
         req.params['client_secret'] = client_secret
         req.params['q'] = params[:query]
-        req.options.timeout = 0
       end
 
       body = JSON.parse(@resp.body)

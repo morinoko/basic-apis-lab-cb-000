@@ -14,7 +14,7 @@
     </li>
   <% end %>
   </ul>
-<% elsif @repositories.length == 0 %>
+<% elsif @repositories && @repositories.length == 0 %>
   <p>No results</p>
 <% elsif @error %>
   <div id="errors">

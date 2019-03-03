@@ -4,13 +4,12 @@ class RepositoriesController < ApplicationController
   end
 
   def github_search
-    github_token = Rails.application.secrets.github_token
     client_id = Rails.application.secrets.github_client_id
     client_secret = Rails.application.secrets.github_client_secret
 
     @resp = Faraday.get 'https://api.github.com/search/repositories' do |req|
-      #req.params['client_id'] = client_id
-      #req.params['client_secret'] = client_secret
+      req.params['client_id'] = client_id
+      req.params['client_secret'] = client_secret
       req.params['q'] = params[:query]
     end
 

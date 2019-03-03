@@ -5,7 +5,7 @@
   <%= submit_tag "Search Github!" %>
 <% end %>
 
-<% if @repositories.length > 0 %>
+<% if @repositories && @repositories.length > 0 %>
   <ul>
   <% @repositories.each do |repo| %>
     <li>

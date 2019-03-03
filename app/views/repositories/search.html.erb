@@ -5,7 +5,7 @@
   <%= submit_tag "Search Github!" %>
 <% end %>
 
-<% if @repositories %>
+<% if @repositories.length > 0 %>
   <ul>
   <% @repositories.each do |repo| %>
     <li>
@@ -14,6 +14,8 @@
     </li>
   <% end %>
   </ul>
+<% elsif @repositories.lenght == 0 %>
+  <p>No results</p>
 <% elsif @error %>
   <div id="errors">
     <%= @error %>

@@ -18,7 +18,7 @@ class RepositoriesController < ApplicationController
     if @resp.success?
       @repositories = body['items']
     else
-      @error = body
+      @error = body['message']
     end
 
     render :search

@@ -7,18 +7,23 @@ class RepositoriesController < ApplicationController
     client_id = Rails.application.secrets.github_client_id
     client_secret = Rails.application.secrets.github_client_secret
 
-    @resp = Faraday.get 'https://api.github.com/search/repositories' do |req|
-      req.params['client_id'] = client_id
-      req.params['client_secret'] = client_secret
-      req.params['q'] = params[:query]
-    end
+    begin
+      @resp = Faraday.get 'https://api.github.com/search/repositories' do |req|
+        req.params['client_id'] = client_id
+        req.params['client_secret'] = client_secret
+        req.params['q'] = params[:query]
+      end
 
-    body = JSON.parse(@resp.body)
+      body = JSON.parse(@resp.body)
 
-    if @resp.success?
-      @repositories = body['items']
-    else
-      @error = body['message']
+      if @resp.success?
+        @repositories = body['items']
+      else
+        @error = body['message']
+      end
+
+    rescue Faraday::ConnectionFailed
+      @error = "There was a timeout. Please try again"
     end
 
     render :search
